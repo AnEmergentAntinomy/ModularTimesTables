@@ -6,7 +6,7 @@ pi = math.pi
 points = []
 locations = []
 frames = []
-modulo = 360
+modulus = 360
 radius = 1
 coeff = 0.00
 
@@ -55,11 +55,11 @@ def GenerateLocations(plot=False):
 # Generates Modular Times Table with given coeff and solid lines by default
 @gif.frame
 def GenerateLines(c,style,live=False):
-    for n in range(modulo):
+    for n in range(modulus):
         point = locations[n]
         place = point[0]
         loc = point[1]
-        mod = (place * c) % modulo
+        mod = (place * c) % modulus
         mod_int = int(mod)
         end_point = locations[mod_int]
         line_end = end_point[1]
@@ -98,5 +98,5 @@ def AnimateTables(c,r,n,l,style=solid):
 
 
 if __name__ == "__main__":
-    AnimateTables(coeff,radius,modulo,100)
-##    ShowSingleTable(coeff,radius,modulo)
+    AnimateTables(coeff,radius,modulus,100)
+##    ShowSingleTable(coeff,radius,modulus)
