@@ -68,7 +68,7 @@ def GenerateLines(style=solid,live=True):
 def Main():
     GeneratePoints(radius,modulo)
     GenerateLocations()
-    GenerateLines(style=loose_dash)
+    GenerateLines()
     plt.show()
 
 if __name__ == "__main__":
