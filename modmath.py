@@ -97,5 +97,6 @@ def AnimateTables(c,r,n,l,style=solid):
     gif.save(frames, "modmath.gif", duration=100)
 
 
-AnimateTables(coeff,radius,modulo,100)
-##ShowSingleTable(coeff,radius,modulo)
+if __name__ == "__main__":
+    AnimateTables(coeff,radius,modulo,100)
+##    ShowSingleTable(coeff,radius,modulo)
