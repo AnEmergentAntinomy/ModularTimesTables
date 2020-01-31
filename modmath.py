@@ -1,18 +1,21 @@
 import matplotlib.pyplot as plt
 import math
+import gif
 
 pi = math.pi
 points = []
 locations = []
+frames = []
 modulo = 360
 radius = 1
-coeff = 90.0
+coeff = 0.0
 
 fig, ax = plt.subplots(1, 1)
 ax.set_aspect('equal')
 ax.set_xlim(-1.1, 1.1)
 ax.set_ylim(-1.1, 1.1)
 
+# linestyles
 solid = "-"
 loose_dot = (0, (1, 10))
 dot = ":"
@@ -27,9 +30,8 @@ loose_dashdotdot = (0, (3, 10, 1, 10, 1, 10))
 dashdotdot = (0, (3, 5, 1, 5, 1, 5))
 dense_dashdotdot = (0, (3, 1, 1, 1, 1, 1))
 
-styles = [solid, loose_dot, dot, dense_dot, loose_dash, dash, dense_dash, loose_dashdot,
-          dashdot, dense_dashdot, loose_dashdotdot, dashdotdot, dense_dashdotdot]
 
+# Generates n points on a circle with radius r
 def GeneratePoints(r,n):
     for x in range(0,n+1):
         pointx = math.cos(2*pi/n*x)*r
@@ -37,24 +39,26 @@ def GeneratePoints(r,n):
         points.append((pointx,pointy))
 
 
+# Generates the numbers for each point for the modular multiplication with option to plot points
 def GenerateLocations(plot=False):
     x = 0
     for point in points:
-        pointx,pointy = point
         if plot == True:
+            pointx,pointy = point
             plt.scatter(pointx,pointy,s=5)
         location = (x,point)
         locations.append(location)
         x += 1
 
 
-def GenerateLines(style=solid,live=True):
+# Generates Modular Times Table with given coeff and solid lines by default
+@gif.frame
+def GenerateLines(c,style=solid,live=False):
     for n in range(modulo):
-        n = n % modulo
         point = locations[n]
         place = point[0]
         loc = point[1]
-        mod = (place * coeff) % modulo
+        mod = (place * c) % modulo
         mod_int = int(mod)
         end_point = locations[mod_int]
         line_end = end_point[1]
@@ -65,11 +69,30 @@ def GenerateLines(style=solid,live=True):
             plt.pause(0.001)
 
 
-def Main():
-    GeneratePoints(radius,modulo)
+# Generates frames for gif from current coefficient (c) to higher coefficient (l)
+def Gif(c,l):
+    while c < l:
+        frame = GenerateLines(c)
+        frames.append(frame)
+        c += 0.01
+
+
+# Shows a single times table
+def ShowSingleTable(c,r,n):
+    GeneratePoints(r,n)
     GenerateLocations()
-    GenerateLines()
+    GenerateLines(c,live=True)
     plt.show()
 
+
+# Animates modular times tables and saves as gif
+def AnimateTables(c,r,n,l):
+    GeneratePoints(r,n)
+    GenerateLocations()
+    Gif(c,l)
+    gif.save(frames, "modmath.gif", duration=50)
+
+
 if __name__ == "__main__":
-    Main()
+    AnimateTables(coeff,radius,modulo,3)
+##    ShowSingleTable(coeff,radius,modulo)
