@@ -8,12 +8,13 @@ locations = []
 frames = []
 modulo = 360
 radius = 1
-coeff = 0.0
+coeff = 0.00
 
 fig, ax = plt.subplots(1, 1)
 ax.set_aspect('equal')
 ax.set_xlim(-1.1, 1.1)
 ax.set_ylim(-1.1, 1.1)
+
 
 # linestyles
 solid = "-"
@@ -72,9 +73,12 @@ def GenerateLines(c,style,live=False):
 # Generates frames for gif from current coefficient (c) to higher coefficient (l)
 def Gif(c,l,style):
     while c < l:
+        plt.axis('equal')
         frame = GenerateLines(c,style)
         frames.append(frame)
+        print(c)
         c += 0.01
+        c = round(c,2)
 
 
 # Shows a single times table
@@ -90,9 +94,9 @@ def AnimateTables(c,r,n,l,style=solid):
     GeneratePoints(r,n)
     GenerateLocations()
     Gif(c,l,style)
-    gif.save(frames, "modmath.gif", duration=50)
+    gif.save(frames, "modmath.gif", duration=100)
 
 
 if __name__ == "__main__":
-    AnimateTables(coeff,radius,modulo,1)
+    AnimateTables(coeff,radius,modulo,100)
 ##    ShowSingleTable(coeff,radius,modulo)
