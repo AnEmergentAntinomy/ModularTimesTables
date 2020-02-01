@@ -100,5 +100,5 @@ def AnimateTables(c,r,m,l,style=solid):
 
 
 if __name__ == "__main__":
-    AnimateTables(coeff,radius,modulus,10,loose_dash)
+    AnimateTables(coeff,radius,modulus,10)
 ##    ShowSingleTable(coeff,radius,modulus)
