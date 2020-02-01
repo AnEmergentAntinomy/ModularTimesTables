@@ -54,12 +54,12 @@ def GenerateLocations(plot=False):
 
 # Generates Modular Times Table with given coeff and solid lines by default
 @gif.frame
-def GenerateLines(c,style,live=False):
-    for n in range(modulus):
+def GenerateLines(c,m,style,live=False,show=False):
+    for n in range(m):
         point = locations[n]
         place = point[0]
         loc = point[1]
-        mod = (place * c) % modulus
+        mod = (place * c) % m
         mod_int = int(mod)
         end_point = locations[mod_int]
         line_end = end_point[1]
@@ -68,13 +68,16 @@ def GenerateLines(c,style,live=False):
         plt.plot(x,y,linestyle=style)
         if live == True:
             plt.pause(0.001)
+    if show == True:
+        plt.show()
+            
 
 
 # Generates frames for gif from current coefficient (c) to higher coefficient (l)
-def Gif(c,l,style):
-    while c < l:
+def Gif(c,m,l,style):
+    while c < (l+0.01):
         plt.axis('equal')
-        frame = GenerateLines(c,style)
+        frame = GenerateLines(c,m,style)
         frames.append(frame)
         print(c)
         c += 0.01
@@ -85,18 +88,17 @@ def Gif(c,l,style):
 def ShowSingleTable(c,r,m,style=solid):
     GeneratePoints(r,m)
     GenerateLocations()
-    GenerateLines(c,style,live=True)
-    plt.show()
+    GenerateLines(c,m,style,live=True,show=True)
 
 
 # Animates modular times tables and saves as gif (depending on how far apart c and l are, this could take a while)
 def AnimateTables(c,r,m,l,style=solid):
     GeneratePoints(r,m)
     GenerateLocations()
-    Gif(c,l,style)
-    gif.save(frames, "modmath.gif", duration=100)
+    Gif(c,m,l,style)
+    gif.save(frames, "modmath.gif", duration=50)
 
 
 if __name__ == "__main__":
-    AnimateTables(coeff,radius,modulus,1)
+    AnimateTables(coeff,radius,modulus,10,loose_dash)
 ##    ShowSingleTable(coeff,radius,modulus)
