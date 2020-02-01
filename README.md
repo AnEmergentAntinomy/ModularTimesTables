@@ -7,7 +7,7 @@ the variables at the top (coeff,radius,modulus) make it simpler to change those 
 
 ShowSingleTable(c,r,n,style=solid) will plot out a single table line by line
 
-AnimateTimesTables(c,r,n,l,style=solid) will produce times tables and put each one as an individual frame in a gif
+AnimateTables(c,r,n,l,style=solid) will produce times tables and put each one as an individual frame in a gif
 
     c (the coefficient) is the number to multiply by
     r (the radius) determines the size of the circle
