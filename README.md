@@ -17,8 +17,8 @@ AnimateTimesTables(c,r,n,l,style=solid) will produce times tables and put each o
 
 
 Examples:
-  c       n
-  179 mod 360 (something neat happens when the coefficient is (modulus/2)-1, try these two examples and see the difference
+
+  179(c) mod 360(m) something neat happens when the coefficient is (modulus/2)-1, try these two examples and see the difference
   
     ShowSingleTable(179,1,360)
     ShowSingleTable(179,1,360,loose_dash)
