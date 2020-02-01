@@ -33,10 +33,10 @@ dense_dashdotdot = (0, (3, 1, 1, 1, 1, 1))
 
 
 # Generates n points on a circle with radius r
-def GeneratePoints(r,n):
-    for x in range(0,n+1):
-        pointx = math.cos(2*pi/n*x)*r
-        pointy = math.sin(2*pi/n*x)*r
+def GeneratePoints(r,m):
+    for x in range(0,m+1):
+        pointx = math.cos(2*pi/m*x)*r
+        pointy = math.sin(2*pi/m*x)*r
         points.append((pointx,pointy))
 
 
@@ -82,16 +82,16 @@ def Gif(c,l,style):
 
 
 # Shows a single times table
-def ShowSingleTable(c,r,n,style=solid):
-    GeneratePoints(r,n)
+def ShowSingleTable(c,r,m,style=solid):
+    GeneratePoints(r,m)
     GenerateLocations()
     GenerateLines(c,style,live=True)
     plt.show()
 
 
 # Animates modular times tables and saves as gif
-def AnimateTables(c,r,n,l,style=solid):
-    GeneratePoints(r,n)
+def AnimateTables(c,r,m,l,style=solid):
+    GeneratePoints(r,m)
     GenerateLocations()
     Gif(c,l,style)
     gif.save(frames, "modmath.gif", duration=100)
