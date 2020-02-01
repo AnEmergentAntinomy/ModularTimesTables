@@ -89,7 +89,7 @@ def ShowSingleTable(c,r,m,style=solid):
     plt.show()
 
 
-# Animates modular times tables and saves as gif
+# Animates modular times tables and saves as gif (depending on how far apart c and l are, this could take a while)
 def AnimateTables(c,r,m,l,style=solid):
     GeneratePoints(r,m)
     GenerateLocations()
@@ -98,5 +98,5 @@ def AnimateTables(c,r,m,l,style=solid):
 
 
 if __name__ == "__main__":
-    AnimateTables(coeff,radius,modulus,100)
+    AnimateTables(coeff,radius,modulus,1)
 ##    ShowSingleTable(coeff,radius,modulus)
