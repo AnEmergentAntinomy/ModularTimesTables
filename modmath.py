@@ -32,7 +32,7 @@ dashdotdot = (0, (3, 5, 1, 5, 1, 5))
 dense_dashdotdot = (0, (3, 1, 1, 1, 1, 1))
 
 
-# Generates n points on a circle with radius r
+# Generates m points on a circle with radius r
 def GeneratePoints(r,m):
     for x in range(0,m+1):
         pointx = math.cos(2*pi/m*x)*r
