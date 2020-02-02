@@ -3,15 +3,6 @@ import math
 import gif
 
 pi = math.pi
-points = []
-locations = []
-frames = []
-
-fig, ax = plt.subplots(1, 1)
-ax.set_aspect('equal')
-ax.set_xlim(-1.1, 1.1)
-ax.set_ylim(-1.1, 1.1)
-ax.set_title("Modular Times Tables")
 
 # linestyles
 solid = "-"
@@ -29,12 +20,57 @@ dashdotdot = (0, (3, 5, 1, 5, 1, 5))
 dense_dashdotdot = (0, (3, 1, 1, 1, 1, 1))
 
 # variables for generating tables
-coeff = 0.00
-radius = 1
+coeff = 0
+radius = 1000
 modulus = 360
 itval = 0.01
-length = 1
+end_c = 1
 style = solid
+
+
+def Setup(title):
+    global points
+    global locations
+    global frames
+    
+    points = []
+    locations = []
+    frames = []
+    
+    fig, ax = plt.subplots(1, 1)
+    ax.set_title(title)
+    ax.set_aspect('equal')
+    ax.set_xlim(-1050, 1050)
+    ax.set_ylim(-1050, 1050)
+
+
+# Checks which linestyle is used and 
+def StyleCheck(style):
+    if style == solid:
+        s = "solid"
+    elif style == dot:
+        s = "dot"
+    elif style == dense_dot:
+        s = "ddot"
+    elif style == loose_dash:
+        s = "ldash"
+    elif style == dash:
+        s = "dash"
+    elif style == dense_dash:
+        s = "ddash"
+    elif style == loose_dashdot:
+        s = "ldash"
+    elif style == dashdot:
+        s = "dashdot"
+    elif style == dense_dashdot:
+        s = "ddashdot"
+    elif style == loose_dashdotdot:
+        s = "ldashdotdot"
+    elif style == dashdotdot:
+        s = "dashdotdot"
+    elif style == dense_dashdotdot:
+        s = "ddashdotdot"
+    return s
 
 
 # Generates m points on a circle with radius r
@@ -45,13 +81,10 @@ def GeneratePoints(r,m):
         points.append((pointx,pointy))
 
 
-# Generates the numbers for each point for the modular multiplication with option to plot points
-def GenerateLocations(plot=False):
+# Generates the numbers for each point for the modular multiplication
+def GenerateLocations():
     x = 0
     for point in points:
-        if plot == True:
-            pointx,pointy = point
-            plt.scatter(pointx,pointy,s=5)
         location = (x,point)
         locations.append(location)
         x += 1
@@ -59,9 +92,8 @@ def GenerateLocations(plot=False):
 
 # Generates modular times table with given coeff and solid lines by default
 @gif.frame
-def GenerateLines(c,m,style,live=False,show=False):
-    plt.xlabel(str(c))
-    for n in range(m):
+def GenerateLines(c,m,style,live=False,show=False,dots=False):
+    for n in range(m+1):
         point = locations[n]
         place = point[0]
         loc = point[1]
@@ -72,17 +104,23 @@ def GenerateLines(c,m,style,live=False,show=False):
         x = (loc[0],line_end[0])
         y = (loc[1],line_end[1])
         plt.plot(x,y,linestyle=style)
+        if dots == True:
+            pointx,pointy = loc
+            plt.scatter(pointx,pointy,s=5)
         if live == True:
-            plt.pause(0.001)
+            plt.ylabel(str(place))
+            plt.xlabel(str(mod_int))
+            plt.pause(0.01)
     if show == True:
         plt.show()
 
 
 # Generates frames for gif from current coefficient (c) to higher coefficient (l)
-def Gif(c,m,i,l,style):
-    while c <= l:
+def TablesGif(c,m,i,e,style,dots):
+    while c <= e:
         plt.axis('equal')
-        frame = GenerateLines(c,m,style)
+        plt.xlabel(str(c))
+        frame = GenerateLines(c,m,style,dots=dots)
         frames.append(frame)
         print(c)
         c += i
@@ -90,21 +128,38 @@ def Gif(c,m,i,l,style):
 
 
 # Shows a single modular times table
-def ShowSingleTable(c,r,m,style=solid):
+def ShowSingleTable(c,r,m,style=solid,live=True,dots=False):
+    title = f"{c}mod{m} Times Table"
+    Setup(title)
     GeneratePoints(r,m)
     GenerateLocations()
-    GenerateLines(c,m,style,live=True,show=True)
+    GenerateLines(c,m,style,live,show=True,dots=dots)
 
 
 # Animates modular times tables and saves as gif (depending on how far apart c and l are, this could take a while)
-def AnimateTables(c,r,m,i,l,style=solid):
+def AnimateTables(c,r,m,i,e,style=solid,dots=False):
+    title = f"mod{m} Times Tables"
+    Setup(title)
     GeneratePoints(r,m)
     GenerateLocations()
-    Gif(c,m,i,l,style)
-    gif.save(frames, "modmath.gif", duration=50)
+    TablesGif(c,m,i,e,style,dots)
+    print("Building gif. . .")
+    s = StyleCheck(style)
+    name = f"modtables_({c}-{e})mod{m}_{s}.gif"
+    gif.save(frames, name, duration=50)
+    print(name + " complete.\n")
 
 
 
 if __name__ == "__main__":
-    AnimateTables(coeff,radius,modulus,itval,length,style)
-##    ShowSingleTable(coeff,radius,modulus,style)
+    ShowSingleTable(coeff,radius,modulus,style)
+    AnimateTables(coeff,radius,modulus,itval,end_c,style)
+
+    # Examples
+    
+##    ShowSingleTable(179,1000,360)
+##    ShowSingleTable(179,1000,360,loose_dash)
+    
+##    AnimateTables(0,1000,360,0.01,10,style=dash,dots=True)
+##    AnimateTables(0,1000,360,0.01,.1)
+##    AnimateTables(0,1000,360,0.01,10,dash)
