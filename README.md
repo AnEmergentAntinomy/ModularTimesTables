@@ -23,7 +23,7 @@ Table Variables
     i (the iteration value) is the amount c changes each frame
     e (the end coefficient) determines how many frames will be in the gif
 
-    style is the style of line to use ("solid","dot","dash","loose_dash","dashdot",etc.)
+    style is the style of line to use (solid,dot,dash,loose_dash,dashdot,etc.)
       if no style is given it will default to solid
     dots can be set to True to plot the points of the circle
 
