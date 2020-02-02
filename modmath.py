@@ -44,7 +44,7 @@ def Setup(title):
     ax.set_ylim(-1050, 1050)
 
 
-# Checks which linestyle is used and 
+# Checks which linestyle is used and returns as string
 def StyleCheck(style):
     if style == solid:
         s = "solid"
