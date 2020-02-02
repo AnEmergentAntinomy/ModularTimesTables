@@ -12,7 +12,7 @@ AnimateTables(c,r,m,i,l,style) will produce times tables and put each one as an 
     c (the coefficient) is the number to multiply by
     r (the radius) determines the size of the circle
     m (the modulus) is the amount of points on the circle
-    i (iteration value) is the amount c changes each frame
+    i (the iteration value) is the amount c changes each frame
     l (the end coefficient) determines how many frames will be in the gif
     style is the style of line to use (solid,dot,dash,loose_dash,dashdot,etc.)
       if no style is given it will default to solid
