@@ -6,15 +6,12 @@ pi = math.pi
 points = []
 locations = []
 frames = []
-modulus = 360
-radius = 1
-coeff = 0.00
 
 fig, ax = plt.subplots(1, 1)
 ax.set_aspect('equal')
 ax.set_xlim(-1.1, 1.1)
 ax.set_ylim(-1.1, 1.1)
-
+ax.set_title("Modular Times Tables")
 
 # linestyles
 solid = "-"
@@ -30,6 +27,14 @@ dense_dashdot = (0, (3, 1, 1, 1))
 loose_dashdotdot = (0, (3, 10, 1, 10, 1, 10))
 dashdotdot = (0, (3, 5, 1, 5, 1, 5))
 dense_dashdotdot = (0, (3, 1, 1, 1, 1, 1))
+
+# variables for generating tables
+coeff = 0.00
+radius = 1
+modulus = 360
+itval = 0.01
+length = 1
+style = solid
 
 
 # Generates m points on a circle with radius r
@@ -52,9 +57,10 @@ def GenerateLocations(plot=False):
         x += 1
 
 
-# Generates Modular Times Table with given coeff and solid lines by default
+# Generates modular times table with given coeff and solid lines by default
 @gif.frame
 def GenerateLines(c,m,style,live=False,show=False):
+    plt.xlabel(str(c))
     for n in range(m):
         point = locations[n]
         place = point[0]
@@ -70,21 +76,20 @@ def GenerateLines(c,m,style,live=False,show=False):
             plt.pause(0.001)
     if show == True:
         plt.show()
-            
 
 
 # Generates frames for gif from current coefficient (c) to higher coefficient (l)
-def Gif(c,m,l,style):
-    while c < (l+0.01):
+def Gif(c,m,i,l,style):
+    while c <= l:
         plt.axis('equal')
         frame = GenerateLines(c,m,style)
         frames.append(frame)
         print(c)
-        c += 0.01
+        c += i
         c = round(c,2)
 
 
-# Shows a single times table
+# Shows a single modular times table
 def ShowSingleTable(c,r,m,style=solid):
     GeneratePoints(r,m)
     GenerateLocations()
@@ -92,13 +97,14 @@ def ShowSingleTable(c,r,m,style=solid):
 
 
 # Animates modular times tables and saves as gif (depending on how far apart c and l are, this could take a while)
-def AnimateTables(c,r,m,l,style=solid):
+def AnimateTables(c,r,m,i,l,style=solid):
     GeneratePoints(r,m)
     GenerateLocations()
-    Gif(c,m,l,style)
+    Gif(c,m,i,l,style)
     gif.save(frames, "modmath.gif", duration=50)
 
 
+
 if __name__ == "__main__":
-    AnimateTables(coeff,radius,modulus,10)
-##    ShowSingleTable(coeff,radius,modulus)
+    AnimateTables(coeff,radius,modulus,itval,length,style)
+##    ShowSingleTable(coeff,radius,modulus,style)
