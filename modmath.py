@@ -28,7 +28,8 @@ end_c = 1
 style = solid
 
 
-def Setup(title):
+# Sets up lists and table dimensions
+def Setup(title,r):
     global points
     global locations
     global frames
@@ -40,8 +41,10 @@ def Setup(title):
     fig, ax = plt.subplots(1, 1)
     ax.set_title(title)
     ax.set_aspect('equal')
-    ax.set_xlim(-1050, 1050)
-    ax.set_ylim(-1050, 1050)
+    btm = -r - (r*0.05)
+    top = r + (r*0.05)
+    ax.set_xlim(btm, top)
+    ax.set_ylim(btm, top)
 
 
 # Checks which linestyle is used and returns as string
@@ -130,7 +133,7 @@ def TablesGif(c,m,i,e,style,dots):
 # Shows a single modular times table
 def ShowSingleTable(c,r,m,style=solid,live=True,dots=False):
     title = f"{c}mod{m} Times Table"
-    Setup(title)
+    Setup(title,r)
     GeneratePoints(r,m)
     GenerateLocations()
     GenerateLines(c,m,style,live,show=True,dots=dots)
@@ -139,7 +142,7 @@ def ShowSingleTable(c,r,m,style=solid,live=True,dots=False):
 # Animates modular times tables and saves as gif (depending on how far apart c and l are, this could take a while)
 def AnimateTables(c,r,m,i,e,style=solid,dots=False):
     title = f"mod{m} Times Tables"
-    Setup(title)
+    Setup(title,r)
     GeneratePoints(r,m)
     GenerateLocations()
     TablesGif(c,m,i,e,style,dots)
@@ -152,8 +155,8 @@ def AnimateTables(c,r,m,i,e,style=solid,dots=False):
 
 
 if __name__ == "__main__":
-    ShowSingleTable(coeff,radius,modulus,style)
-    AnimateTables(coeff,radius,modulus,itval,end_c,style)
+##    ShowSingleTable(coeff,radius,modulus,style)
+##    AnimateTables(coeff,radius,modulus,itval,end_c,style)
 
     # Examples
     
@@ -161,5 +164,5 @@ if __name__ == "__main__":
 ##    ShowSingleTable(179,1000,360,loose_dash)
     
 ##    AnimateTables(0,1000,360,0.01,10,style=dash,dots=True)
-##    AnimateTables(0,1000,360,0.01,.1)
+##    AnimateTables(0,100,360,0.01,10)
 ##    AnimateTables(0,1000,360,0.01,10,dash)
