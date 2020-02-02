@@ -155,8 +155,8 @@ def AnimateTables(c,r,m,i,e,style=solid,dots=False):
 
 
 if __name__ == "__main__":
-##    ShowSingleTable(coeff,radius,modulus,style)
-##    AnimateTables(coeff,radius,modulus,itval,end_c,style)
+    ShowSingleTable(coeff,radius,modulus,style)
+    AnimateTables(coeff,radius,modulus,itval,end_c,style)
 
     # Examples
     
