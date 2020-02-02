@@ -7,7 +7,7 @@ the variables at the top (coeff,radius,modulus,itval,length) make it simpler to 
 
 ShowSingleTable(c,r,m,style) will plot out a single table line by line
 
-AnimateTimesTables(c,r,m,i,l,style) will produce times tables and put each one as an individual frame in a gif
+AnimateTables(c,r,m,i,l,style) will produce times tables and put each one as an individual frame in a gif
 
     c (the coefficient) is the number to multiply by
     r (the radius) determines the size of the circle
@@ -28,7 +28,7 @@ Examples:
 
   gif of tables in mod360(m) with radius of 1(r) from 0(c) to 1(l) with c increasing by 0.01(i) each frame until it reaches l
 
-    AnimateTimesTables(0,1,360,0.01,1)
+    AnimateTables(0,1,360,0.01,1)
   
   
   Other neat single patterns are:
