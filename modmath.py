@@ -62,7 +62,7 @@ def StyleCheck(style):
     elif style == dense_dash:
         s = "ddash"
     elif style == loose_dashdot:
-        s = "ldash"
+        s = "ldashdot"
     elif style == dashdot:
         s = "dashdot"
     elif style == dense_dashdot:
