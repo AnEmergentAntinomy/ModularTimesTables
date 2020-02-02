@@ -28,7 +28,9 @@ Table Variables
     dots can be set to True to plot the points of the circle
 
 
-These examples are commented out and a default example is above them
+By default, these examples are commented out and the default example is above them
+
+    the default example uses the variables at the top (coeff,radius,modulus,itval,end_c,style)
 
 Examples:
 
