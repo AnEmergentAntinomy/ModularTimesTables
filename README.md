@@ -7,11 +7,11 @@ Usage Tips:
 the variables at the top (coeff,radius,modulus,itval,end_c,style) make it simpler to change those values while experimenting
 
 ShowSingleTable(c,r,m,style=solid,live=True,dots=False) will plot out a single table line by line
-  the left number shows the current number (place), the bottom number shows place multiplied by c in mod m
+    the left number shows the current number (place), the bottom number shows place multiplied by c in mod m
     live can be set to false to just print the final image
 
 AnimateTables(c,r,m,i,e,style=solid,dots=False) will produce times tables and put each one as an individual frame in a gif
-  this will print out the coefficient as it builds the tables and then export a gif in the current directory
+    this will print out the coefficient as it builds the tables and then export a gif in the current directory
 
     c (the coefficient) is the number to multiply by
     r (the radius) determines the size of the circle
