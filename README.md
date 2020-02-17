@@ -11,9 +11,15 @@ ShowSingleTable(c,r,m,style=solid,live=True,dots=False) will plot out a single t
     the left number shows the current number (place), the bottom number shows place multiplied by c in mod m
     live can be set to false to just print the final image
 
+ShowSingleTable3D(c,r,m,style=solid,live=True,dots=False) works exactly like the original but plots in 3D space
+
+    the current number is placed on the bottom circle and a line is drawn to the mod on the top circle
+
 AnimateTables(c,r,m,i,e,style=solid,dots=False) will produce times tables and put each one as an individual frame in a gif
 
     this will print out the coefficient as it builds the tables and then export a gif in the current directory
+
+AnimateTables3D(c,r,m,i,e,style=solid,dots=False) is also the same as the original but in 3D
 
 Table Variables
 
@@ -38,11 +44,13 @@ Examples:
   
     ShowSingleTable(179,1000,360)
     ShowSingleTable(179,1000,360,loose_dash)
+    ShowSingleTable3D(81,1000,360)
 
 
-  gif of tables in mod360(m) with radius of 1000(r) from 0(c) to 10(e) with c increasing by 0.01(i) each frame until it reaches e with dash lines and dots
+  gifs of tables in mod360(m) with radius of 1000(r) from 0(c) to 10(e) with c increasing by 0.01(i) each frame until it reaches e with dash lines and dots
 
     AnimateTables(0,1000,360,0.01,10,style=dash,dots=True)
+    AnimateTables3D(0,1000,360,0.01,10)
   
   
   Other neat single patterns are:

@@ -1,3 +1,4 @@
+from mpl_toolkits.mplot3d import axes3d
 import matplotlib.pyplot as plt
 import math
 import gif
@@ -45,6 +46,26 @@ def Setup(title,r):
     top = r + (r*0.05)
     ax.set_xlim(btm, top)
     ax.set_ylim(btm, top)
+
+
+# Sets up lists and table dimensions for 3D
+def Setup3D(title,r):
+    global points
+    global locations
+    global frames
+    
+    points = []
+    locations = []
+    frames = []
+    
+    fig = plt.figure()
+    ax = fig.add_subplot(111, projection='3d')
+    ax.set_title(title)
+    btm = -r - (r*0.05)
+    top = r + (r*0.05)
+    ax.set_xlim(btm, top)
+    ax.set_ylim(btm, top)
+    ax.set_zlim(btm, top)
 
 
 # Checks which linestyle is used and returns as string
@@ -109,7 +130,35 @@ def GenerateLines(c,m,style,live=False,show=False,dots=False):
         plt.plot(x,y,linestyle=style)
         if dots == True:
             pointx,pointy = loc
-            plt.scatter(pointx,pointy,s=5)
+            plt.scatter(pointx,pointy,s=10)
+        if live == True:
+            plt.ylabel(str(place))
+            plt.xlabel(str(mod_int))
+            plt.pause(0.01)
+    if show == True:
+        plt.show()
+
+
+# Generates modular times table with given coeff and solid lines in 3D space
+@gif.frame
+def GenerateLines3D(c,m,style,live=False,show=False,dots=False):
+    for n in range(m+1):
+        point = locations[n]
+        place = point[0]
+        loc = point[1]
+        mod = (place * c) % m
+        mod_int = int(mod)
+        end_point = locations[mod_int]
+        line_end = end_point[1]
+        x = (loc[0],line_end[0])
+        y = (loc[1],line_end[1])
+        btm = -radius + (radius*0.1)
+        top = radius - (radius*0.1)
+        z = (btm, top)
+        plt.plot(x,y,z,linestyle=style)
+        if dots == True:
+            pointx,pointy = loc
+            plt.scatter(pointx,pointy,s=10)
         if live == True:
             plt.ylabel(str(place))
             plt.xlabel(str(mod_int))
@@ -130,6 +179,19 @@ def TablesGif(c,m,i,e,style,dots):
         c = round(c,2)
 
 
+# Generates frames for gif from current coefficient (c) to higher coefficient (l)
+def TablesGif3D(c,m,i,e,style,dots):
+    while c <= e:
+        fig = plt.figure()
+        ax = fig.add_subplot(111, projection='3d')
+        plt.xlabel(str(c))
+        frame = GenerateLines3D(c,m,style,dots=dots)
+        frames.append(frame)
+        print(c)
+        c += i
+        c = round(c,2)
+
+
 # Shows a single modular times table
 def ShowSingleTable(c,r,m,style=solid,live=True,dots=False):
     title = f"{c}mod{m} Times Table"
@@ -137,6 +199,15 @@ def ShowSingleTable(c,r,m,style=solid,live=True,dots=False):
     GeneratePoints(r,m)
     GenerateLocations()
     GenerateLines(c,m,style,live,show=True,dots=dots)
+
+
+# Shows a single modular times table on 3D graph
+def ShowSingleTable3D(c,r,m,style=solid,live=True,dots=False):
+    title = f"{c}mod{m} 3D Times Table"
+    Setup3D(title,r)
+    GeneratePoints(r,m)
+    GenerateLocations()
+    GenerateLines3D(c,m,style,live,show=True,dots=dots)
 
 
 # Animates modular times tables and saves as gif (depending on how far apart c and l are, this could take a while)
@@ -149,20 +220,38 @@ def AnimateTables(c,r,m,i,e,style=solid,dots=False):
     print("Building gif. . .")
     s = StyleCheck(style)
     name = f"modtables_({c}-{e})mod{m}_{s}.gif"
-    gif.save(frames, name, duration=50)
+    gif.save(frames, name, duration=100)
+    print(name + " complete.\n")
+
+
+# Animates modular times tables in 3D and saves as gif (depending on how far apart c and l are, this could take a while)
+def AnimateTables3D(c,r,m,i,e,style=solid,dots=False):
+    title = f"mod{m} 3D Times Tables"
+    Setup3D(title,r)
+    GeneratePoints(r,m)
+    GenerateLocations()
+    TablesGif3D(c,m,i,e,style,dots)
+    print("Building gif. . .")
+    s = StyleCheck(style)
+    name = f"modtables3D_({c}-{e})mod{m}_{s}.gif"
+    gif.save(frames, name, duration=100)
     print(name + " complete.\n")
 
 
 
 if __name__ == "__main__":
     ShowSingleTable(coeff,radius,modulus,style)
+    ShowSingleTable3D(coeff,radius,modulus,style)
     AnimateTables(coeff,radius,modulus,itval,end_c,style)
+    AnimateTables3D(coeff,radius,modulus,itval,end_c,style)
 
     # Examples
     
 ##    ShowSingleTable(179,1000,360)
 ##    ShowSingleTable(179,1000,360,loose_dash)
+##    ShowSingleTable3D(81,1000,360)
     
-##    AnimateTables(0,1000,360,0.01,10,style=dash,dots=True)
+##    AnimateTables(0,1000,360,0.01,10,style=dashdot,dots=True)
 ##    AnimateTables(0,100,360,0.01,10)
 ##    AnimateTables(0,1000,360,0.01,10,dash)
+##    AnimateTables3D(0,1000,360,0.01,10)
